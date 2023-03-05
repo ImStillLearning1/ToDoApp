@@ -1,0 +1,19 @@
+﻿@model ToDoApp.Models.Dtos.UserDto;
+
+@if (Model != null)
+{
+    <div class="dropdown">
+        <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-user"></i>
+            <span class="ps-2">@(Model.FirstName + " " + Model.LastName)</span>
+        </a>
+
+        <ul class="dropdown-menu">
+            <li><a asp-controller="UserAccount" asp-action="EditUserDetails" class="dropdown-item">Edytuj konto użytkownika</a></li>
+            <li><a asp-controller="UserAccount" asp-action="EditUserProjects" class="dropdown-item">Edytuj projekty</a></li>
+            <li><a asp-controller="UserAccount" asp-action="GetMonthSummary" class="dropdown-item">Podsumowanie miesiąca</a></li>
+        </ul>
+    </div>
+
+    <a asp-controller="SignOut" asp-action="SignOut" class="btn btn-danger">Wyloguj</a>
+}

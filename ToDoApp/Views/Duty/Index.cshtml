@@ -1,0 +1,35 @@
+﻿@model ToDoApp.Models.Dtos.DutyDto;
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3 d-flex justify-content-center">
+            <div class="form-box">
+                <form asp-action="Create" method="post" style="display:flex; flex-direction:column;max-width: 300px">
+                    <div class="input-box">
+                        @Html.LabelFor(model => model.Title, "Tytuł" ,new { @class = "input-label"})
+                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", placeholder = "Tytuł zadania" } })
+                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="input-box">
+                        @Html.LabelFor(model => model.Description, "Opis", new { @class = "input-label"})
+                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", placeholder = "Opis zadania" } })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="input-box">
+                        @Html.LabelFor(model => model.Project.Title, "Projekt", new { @class = "input-label"})
+                        @await Component.InvokeAsync("Projects")
+                        @Html.ValidationMessageFor(model => model.Project.Title, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="input-box">
+                        @Html.LabelFor(model => model.EndDate, "Termin", new { @class="input-label" })
+                        @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", placeholder = "Data zakończenia" } })
+                        @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="input-box input-box--submit">
+                        <input type="submit" value="Dodaj zadanie" name="CreateDuty" class="submit-button"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

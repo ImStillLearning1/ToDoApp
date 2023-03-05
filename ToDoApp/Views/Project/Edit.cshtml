@@ -1,0 +1,31 @@
+﻿@model ToDoApp.Models.Dtos.ProjectDto;
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3 d-flex justify-content-center">
+            <div class="form-box">
+                <div class="form-header">
+                    <h1>Zaktualizuj Projekt</h1>
+                </div>
+                <form asp-action="Update" method="post" style="display:flex; flex-direction:column;max-width: 300px">
+                    <div class="input-box">
+                        <input type="hidden" name="projectId" value="@Model.ProjectId" />
+                        <input type="hidden" name="userId" value="@Model.UserId" />
+                        @Html.LabelFor(model => model.Title, "Tytuł", new { @class = "input-label"})
+                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", placeholder = "Tytuł Projektu", value = Model.Title } })
+                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="input-box">
+                        @Html.LabelFor(model => model.Description, "Opis", new { @class = "input-label"})
+                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", placeholder = "Opis Projektu", value = Model.Description } })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="input-box input-box--submit">
+                        <input type="submit" value="Zapisz" name="UpdateProject" class="submit-button" />
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

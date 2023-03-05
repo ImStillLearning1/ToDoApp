@@ -1,0 +1,191 @@
+﻿@model ToDoApp.Models.ViewModels.MonthSummaryViewModel;
+@{
+    double completedDuties = Model.CompletedDuties.Count();
+    double newDuties = Model.NewDuties.Count();
+    double allDuties = Model.AllDuties.Count();
+    double canceledDuties = Model.CanceledDuties.Count();
+    double result = completedDuties / (allDuties - canceledDuties) * 100;
+}
+<div class="banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="scheduler-title">
+                    <h1>Podsumowanie miesiąca</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3 text-end">
+            <h1 class="data-efficiency__header">Skuteczność</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 offset-md-3 d-flex justify-content-center align-items-center">
+            <div class="data-details">
+                <div class="data-box">
+                    <div class="data-title">
+                        <span>Ilość wszystkich zadań:</span>
+                    </div>
+                    <div class="data-value">
+                        <span>@allDuties</span>
+                    </div>
+                </div>
+                <div class="data-box">
+                    <div class="data-title">
+                        <span>Ilość nowych zadań:</span>
+                    </div>
+                    <div class="data-value">
+                        <span>@newDuties</span>
+                    </div>
+                </div>
+                <div class="data-box">
+                    <div class="data-title">
+                        <span>Ilość zrealizowanych zadań:</span>
+                    </div>
+                    <div class="data-value">
+                        <span>@completedDuties</span>
+                    </div>
+                </div>
+                <div class="data-box">
+                    <div class="data-title">
+                        <span>Ilość anulowanych zadań:</span>
+                    </div>
+                    <div class="data-value">
+                        <span>@canceledDuties</span>
+                    </div>
+                </div>
+            </div>
+            @if(result < 30)
+            {
+                <div class="data-efficiency-box">
+                    <div class="data-efficiency efficiency-low">
+                        <span>@(result.ToString() + "%")</span>
+                    </div>
+                    <p>Musisz jeszcze popracować...</p>
+                </div>
+                
+            }
+            else if(result > 30 && result < 80)
+            {
+                <div class="data-efficiency efficiency-medium">
+                    <span>@(result.ToString() + "%")</span>
+                </div>
+                <p>Nie jest źle, ale zawsze może być lepiej!</p>
+            }
+            else
+            {
+                <div class="data-efficiency efficiency-high">
+                    <span>@(result.ToString() + "%")</span>
+                </div>
+                <p>Gratulacje! Jesteś naprawdę produktywny!</p>
+            }
+            
+        </div>
+    </div>
+</div>
+<div class="container mt-5">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <button class="btn btn--summary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAllDuties" aria-expanded="false" aria-controls="collapseAllDuties">
+                Wszystkie zadania
+            </button>
+            <div class="collapse show collapse-center" id="collapseAllDuties">
+                <table class="table-summary">
+                    <tr>
+                        <th>Tytuł</th>
+                        <th>Opis</th>
+                        <th>Status</th>
+                        <th>Data utworzenia</th>
+                    </tr>
+                    @foreach (var duty in Model.AllDuties)
+                    {
+                        <tr>
+                            <td>@duty.Title</td>
+                            <td>@duty.Description</td>
+                            <td>@duty.DutyStatus</td>
+                            <td>@duty.CreatedDate</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <button class="btn btn--summary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNewDuties" aria-expanded="false" aria-controls="collapseNewDuties">
+                Nowe zadania
+            </button>
+            <div class="collapse collapse-center" id="collapseNewDuties">
+                <table class="table-summary">
+                    <tr>
+                        <th>Tytuł</th>
+                        <th>Opis</th>
+                        <th>Status</th>
+                        <th>Data utworzenia</th>
+                    </tr>
+                    @foreach (var duty in Model.NewDuties)
+                    {
+                        <tr>
+                            <td>@duty.Title</td>
+                            <td>@duty.Description</td>
+                            <td>@duty.DutyStatus</td>
+                            <td>@duty.CreatedDate</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <button class="btn btn--summary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCompletedDuties" aria-expanded="false" aria-controls="collapseCompletedDuties">
+                Zrealizowane zadania
+            </button>
+            <div class="collapse collapse-center" id="collapseCompletedDuties">
+                <table class="table-summary">
+                    <tr>
+                        <th>Tytuł</th>
+                        <th>Opis</th>
+                        <th>Data utworzenia</th>
+                    </tr>
+                    @foreach (var duty in Model.CompletedDuties)
+                    {
+                        <tr>
+                            <td>@duty.Title</td>
+                            <td>@duty.Description</td>
+                            <td>@duty.CreatedDate</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <button class="btn btn--summary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCanceledDuties" aria-expanded="false" aria-controls="collapseCanceledDuties">
+                Anulowane zadania
+            </button>
+            <div class="collapse collapse-center" id="collapseCanceledDuties">
+                <table class="table-summary">
+                    <tr>
+                        <th>Tytuł</th>
+                        <th>Opis</th>
+                        <th>Data utworzenia</th>
+                    </tr>
+                    @foreach (var duty in Model.CanceledDuties)
+                    {
+                        <tr>
+                            <td>@duty.Title</td>
+                            <td>@duty.Description</td>
+                            <td>@duty.CreatedDate</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

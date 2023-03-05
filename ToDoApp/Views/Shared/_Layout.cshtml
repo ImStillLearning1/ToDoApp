@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ToDoApp</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ToDoApp.styles.css" asp-append-version="true" />
+    <script src="https://kit.fontawesome.com/4e637a2d12.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
+                    <div class="col-md-3 offset-md-1">
+                        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ToDo Application</a>
+                    </div>
+                    <div class="col-md-3 offset-md-4 d-flex justify-content-end">
+                        <div class="user-box">
+                            @await Component.InvokeAsync("User")
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+
+    <footer class="border-top footer text-muted">
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

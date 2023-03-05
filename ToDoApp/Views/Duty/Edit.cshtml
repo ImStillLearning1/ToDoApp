@@ -1,0 +1,44 @@
+﻿@model ToDoApp.Models.ViewModels.EditDutyViewModel;
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3 d-flex justify-content-center">
+            <div class="form-box">
+                <div class="form-header">
+                    <h1>Zaktualizuj zadanie</h1>
+                </div>
+                <form asp-action="Update" method="post" style="display:flex; flex-direction:column;max-width: 300px">
+                    <input type="hidden" asp-for="@Model.Duty.DutyId" value="@Model.Duty.DutyId" />
+                    <input type="hidden" asp-for="@Model.Duty.UserId" value="@Model.Duty.UserId" />
+                    <div class="input-box">
+                        @Html.LabelFor(model => model.Duty.Title, "Tytuł", new { @class = "input-label"})
+                        @Html.EditorFor(model => model.Duty.Title, new { htmlAttributes = new { @class = "form-control", placeholder = "Tytuł zadania", value = Model.Duty.Title } })
+                        @Html.ValidationMessageFor(model => model.Duty.Title, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="input-box">
+                        @Html.LabelFor(model => model.Duty.Description, "Opis", new { @class = "input-label"})
+                        @Html.EditorFor(model => model.Duty.Description, new { htmlAttributes = new { @class = "form-control", placeholder = "Opis zadania", value = Model.Duty.Description } })
+                        @Html.ValidationMessageFor(model => model.Duty.Description, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="input-box">
+                        @Html.LabelFor(model => model.Duty.ProjectId, "Projekt", new { @class = "input-label"})
+                        @Html.DropDownListFor(model => model.Duty.ProjectId, Model.Projects.Select(x => new SelectListItem{ Text = x.Title, Value = x.ProjectId.ToString()}), new { @class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.Duty.ProjectId, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="input-box">
+                        @Html.LabelFor(model => model.Duty.DutyStatus, "Status", new { @class = "input-label"})
+                        @Html.DropDownListFor(model => model.Duty.DutyStatus, Html.GetEnumSelectList(Model.Duty.DutyStatus.GetType()), new { @class = "form-control"})
+                    </div>
+                    <div class="input-box">
+                        @Html.LabelFor(model => model.Duty.EndDate, "Termin", new { @class="input-label" })
+                        @Html.EditorFor(model => model.Duty.EndDate, new { htmlAttributes = new { @class = "form-control", placeholder = "Data zakończenia", @Model.Duty.EndDate } })
+                        @Html.ValidationMessageFor(model => model.Duty.EndDate, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="input-box input-box--submit">
+                        <input type="submit" value="Zapisz" name="UpdateDuty" class="submit-button" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

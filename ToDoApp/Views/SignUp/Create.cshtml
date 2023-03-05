@@ -1,0 +1,54 @@
+﻿@model ToDoApp.Models.Dtos.UserDto;
+
+@if (Model.UserId == Guid.Empty)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 d-flex justify-content-center">
+                <div class="form-box">
+                    <form method="post" asp-action="Create" style="display:flex; flex-direction:column;max-width: 300px">
+                        <div class="input-box">
+                            @Html.LabelFor(model => model.Login, "Login", new { @class = "input-label"})
+                            @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control", placeholder = "Login" } })
+                            @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="input-box">
+                            @Html.LabelFor(model => model.Password, "Hasło", new { @class = "input-label"})
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Password", type = "password" } })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="input-box">
+                            @Html.LabelFor(model => model.EmailAddress, "Adres email", new { @class = "input-label"})
+                            @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control", placeholder = "Email Address", type = "email" } })
+                            @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="input-box">
+                            @Html.LabelFor(model => model.FirstName, "Imię", new { @class = "input-label"})
+                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", placeholder = "First Name" } })
+                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="input-box">
+                            @Html.LabelFor(model => model.LastName, "Nazwisko", new { @class = "input-label"})
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", placeholder = "Last Name" } })
+                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="input-box">
+                            @Html.LabelFor(model => model.PhoneNumber, "Numer telefonu", new { @class = "input-label"})
+                            @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", placeholder = "Phone Number", type = "phone" } })
+                            @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="input-box input-box--submit">
+                            <input type="submit" value="Sign up" name="signUp" class="submit-button" />
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+else
+{
+    <p>Rejestracja przebiegła pomyślnie, zostałeś dodany do bazy danych.</p>
+}

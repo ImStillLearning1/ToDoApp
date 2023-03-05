@@ -1,0 +1,8 @@
+﻿@model List<ToDoApp.Models.Dtos.ProjectDto>
+
+<select id="ProjectId" name="ProjectId" class="form-control">
+    @foreach(var project in Model)
+    {
+        <option value="@project.ProjectId" >@project.Title</option>
+    }
+</select> 

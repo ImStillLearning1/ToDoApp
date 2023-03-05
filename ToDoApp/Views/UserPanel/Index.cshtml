@@ -1,0 +1,215 @@
+﻿@using System.ComponentModel.DataAnnotations;
+@using System.Reflection;
+@using ToDoApp.Helpers;
+@model ToDoApp.Models.Dtos.UserDto;
+
+<div class="banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="scheduler-title">
+                    <h1>@Model.Scheduler.Title</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            <a href="../dodaj-projekt" class="add-button">Dodaj projekt</a>
+            <div class="box-banner box-banner--projects">
+                <span>Projekty</span>
+            </div>
+            <div class="projects-box">
+                <ul id="project-list">
+                    @foreach (var project in Model.Projects)
+                    {
+                        <li>
+                            <i class="fa-solid fa-sheet-plastic"></i>
+                            <span>@project.Title</span>
+                            <button id="deleteProject" class="delete-button" value="@project.ProjectId">
+                                <i class="fa-solid fa-circle-minus"></i>
+                            </button>
+
+                        </li>
+                    }
+                </ul>
+            </div>
+
+        </div>
+        <div class="col-md-7">
+            <a href="../dodaj-zadanie" class="add-button">Dodaj zadanie</a>
+            <div id="duties" class="duties-box">
+                @foreach (var project in Model.Projects)
+                {
+                    @foreach (var duty in project.Duties)
+                    {
+                        <div class="duty-box">
+                            <button id="deleteDuty" class="delete-button delete-button--duty" value="@duty.DutyId">
+                                <i class="fa-solid fa-circle-minus"></i>
+                            </button>
+                            <form asp-controller="Duty" asp-action="Edit" method="post" class="duty-form">
+                                <input type="hidden" name="dutyId" value="@duty.DutyId" />
+                                <button id="editDuty" class="edit-button edit-button--duty">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </button>
+                            </form>
+                            <div class="left-box">
+                                <div class="duty-title">
+                                    <h2>@duty.Title</h2>
+                                </div>
+                                <div class="duty-desc">
+                                    <p>@duty.Description</p>
+                                </div>
+                            </div>
+                            <div class="right-box">
+                                <div class="duty-enddate">
+                                    <span>@duty.EndDate.ToString("dd-MM-yyy")</span>
+                                </div>
+                                <div class="duty-infoBox">
+                                    @if (duty.DutyStatus == DutyStatus.Nierozpoczęty)
+                                    {
+                                        <div class="duty-status not-begun">
+                                            <span>@(duty.DutyStatus.GetDisplayName())</span>
+                                        </div>
+                                    }
+                                    @if (duty.DutyStatus == DutyStatus.WTrakcieRealizacji)
+                                    {
+                                        <div class="duty-status in-progress">
+                                            <span>@(duty.DutyStatus.GetDisplayName())</span>
+                                        </div>
+                                    }
+                                    @if (duty.DutyStatus == DutyStatus.Ukończony)
+                                    {
+                                        <div class="duty-status done">
+                                            <span>@(duty.DutyStatus.GetDisplayName())</span>
+                                        </div>
+                                    }
+                                    @if (duty.DutyStatus == DutyStatus.PoTerminie)
+                                    {
+                                        <div class="duty-status after-deadline">
+                                            <span>@(duty.DutyStatus.GetDisplayName())</span>
+                                        </div>
+                                    }
+                                    @if (duty.DutyStatus == DutyStatus.Anulowany)
+                                    {
+                                        <div class="duty-status canceled">
+                                            <span>@(duty.DutyStatus.GetDisplayName())</span>
+                                        </div>
+                                    }
+                                    <div class="duty-project">
+                                        <span>@duty.Project.Title</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+        <div id="events" class="col-md-3">
+            <a href="../dodaj-wydarzenie" class="add-button">Dodaj wydarzenie</a>
+            <div class="box-banner box-banner--events">
+                <span>Wydarzenia</span>
+            </div>
+            @foreach (var item in Model.Events)
+            {
+                <div class="event-box">
+                    <div class="event-title">
+                        <h2>@item.Title</h2>
+                    </div>
+                    <div class="event-desc">
+                        <p>@item.Description</p>
+                    </div>
+                    <div class="event-occurence">
+                        <span>Data wydarzenia:</span>
+                        <span class="occurence-date">@item.DateOfOccurence.ToString("dd-MM-yyyy")</span>
+                    </div>
+                    <div class="event-buttonsBox">
+                        <button id="deleteEvent" class="delete-button delete-button--event" value="@item.EventId">
+                            <i class="fa-solid fa-circle-minus"></i>
+                        </button>
+                        <form asp-controller="Event" asp-action="Edit" method="post" class="event-form">
+                            <input type="hidden" name="eventId" value="@item.EventId" />
+                            <button id="editEvent" class="edit-button edit-button--event">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div id="prompt-project" class="prompt-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="prompt-box">
+                    <div class="prompt-header">
+                        <h3>Informacja</h3>
+                    </div>
+                    <div class="prompt-desc">
+                        <p>Zamierzasz usunąć projekt. Czy chcesz kontynuować?</p>
+                    </div>
+                    <div class="prompt-buttons">
+                        <button id="reject-project" class="btn-success">Anuluj</button>
+                        <form asp-controller="Project" asp-action="Delete" method="post">
+                            <input type="hidden" value="" id="deleteProjectValue" name="projectId" />
+                            <button id="delete-project" class="btn-danger">Usuń</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="prompt-duty" class="prompt-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="prompt-box">
+                    <div class="prompt-header">
+                        <h3>Informacja</h3>
+                    </div>
+                    <div class="prompt-desc">
+                        <p>Zamierzasz usunąć zadanie. Czy chcesz kontynuować?</p>
+                    </div>
+                    <div class="prompt-buttons">
+                        <button id="reject-duty" class="btn-success">Anuluj</button>
+                        <form asp-controller="Duty" asp-action="Delete" method="post">
+                            <input type="hidden" value="" id="deleteDutyValue" name="dutyId" />
+                            <button id="delete-duty" class="btn-danger">Usuń</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="prompt-event" class="prompt-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="prompt-box">
+                    <div class="prompt-header">
+                        <h3>Informacja</h3>
+                    </div>
+                    <div class="prompt-desc">
+                        <p>Zamierzasz usunąć wydarzenie. Czy chcesz kontynuować?</p>
+                    </div>
+                    <div class="prompt-buttons">
+                        <button id="reject-event" class="btn-success">Anuluj</button>
+                        <form asp-controller="Event" asp-action="Delete" method="post">
+                            <input type="hidden" value="" id="deleteEventValue" name="eventId" />
+                            <button id="delete-duty" class="btn-danger">Usuń</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="overlay" class="overlay"></div>

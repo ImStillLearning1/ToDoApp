@@ -1,0 +1,41 @@
+﻿@model List<ToDoApp.Models.Dtos.ProjectDto>;
+<div class="banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="scheduler-title">
+                    <h1>Projekty</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="box-banner box-banner--projects">
+                <span>Projekty</span>
+            </div>
+            <div class="projects-box projects-box--edit">
+                <ul id="project-list">
+                    @foreach (var project in Model)
+                    {
+                        <li>
+                            <i class="fa-solid fa-sheet-plastic"></i>
+                            <span>@project.Title</span>
+                            <form asp-controller="Project" asp-action="Edit" method="post" class="project-form">
+                                <input type="hidden" name="projectId" value="@project.ProjectId" />
+                                <button id="projectDuty" class="edit-button edit-button--project">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </button>
+                            </form>
+                            <button id="deleteProject" class="delete-button delete-button--project" value="@project.ProjectId">
+                                <i class="fa-solid fa-circle-minus"></i>
+                            </button>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

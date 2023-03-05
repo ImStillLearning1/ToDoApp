@@ -1,0 +1,37 @@
+﻿@model ToDoApp.Models.Dtos.UserSignedInDto;
+<div class="banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="scheduler-title">
+                    <h1>Logowanie</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3 d-flex justify-content-center">
+            <div class="form-box">
+                <form method="post" asp-action="SignIn" style="display:flex; flex-direction:column; max-width: 300px">
+                    <div class="input-box">
+                        @Html.LabelFor(model => model.Login, new { @class = "input-label"})
+                        @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control", placeholder = "Login" } })
+                        @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
+                    </div>
+             
+                    <div class="input-box">
+                        @Html.LabelFor(model => model.Password, "Hasło", new { @class = "input-label"})
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Password", type = "password" } })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                    
+                    <div class="input-box input-box--submit">
+                        <input type="submit" value="Sign in" name="signIn" class="submit-button"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
