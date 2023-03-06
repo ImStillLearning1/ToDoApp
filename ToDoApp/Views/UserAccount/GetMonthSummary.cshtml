@@ -5,6 +5,7 @@
     double allDuties = Model.AllDuties.Count();
     double canceledDuties = Model.CanceledDuties.Count();
     double result = completedDuties / (allDuties - canceledDuties) * 100;
+    result = 70.00;
 }
 <div class="banner">
     <div class="container">
@@ -59,7 +60,7 @@
                     </div>
                 </div>
             </div>
-            @if(result < 30)
+            @if (result < 30)
             {
                 <div class="data-efficiency-box">
                     <div class="data-efficiency efficiency-low">
@@ -67,23 +68,27 @@
                     </div>
                     <p>Musisz jeszcze popracować...</p>
                 </div>
-                
+
             }
-            else if(result > 30 && result < 80)
+            else if (result > 30 && result < 80)
             {
-                <div class="data-efficiency efficiency-medium">
-                    <span>@(result.ToString() + "%")</span>
+                <div class="data-efficiency-box">
+                    <div class="data-efficiency efficiency-medium">
+                        <span>@(result.ToString() + "%")</span>
+                    </div>
+                    <p class="efficiency-medium__desc">Nie jest źle, ale zawsze może być lepiej!</p>
                 </div>
-                <p>Nie jest źle, ale zawsze może być lepiej!</p>
             }
             else
             {
-                <div class="data-efficiency efficiency-high">
-                    <span>@(result.ToString() + "%")</span>
+                <div class="data-efficiency-box">
+                    <div class="data-efficiency efficiency-high">
+                        <span>@(result.ToString() + "%")</span>
+                    </div>
+                    <p class="efficiency-high__desc">Gratulacje! Jesteś naprawdę produktywny!</p>
                 </div>
-                <p>Gratulacje! Jesteś naprawdę produktywny!</p>
             }
-            
+
         </div>
     </div>
 </div>

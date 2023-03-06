@@ -757,3 +757,13 @@ body {
     top: 15px;
     left:8px;
 }
+
+.data-efficiency-box > .efficiency-medium__desc
+{
+    left: 55px;
+}
+
+.data-efficiency-box > .efficiency-high__desc
+{
+    left: 43px;
+}
