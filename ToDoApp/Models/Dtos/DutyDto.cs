@@ -13,6 +13,8 @@ namespace ToDoApp.Models.Dtos
 
         [EnumDataType(typeof(DutyStatus))]
         public DutyStatus DutyStatus { get; set; }
+        [Range(1, 5)]
+        public int Priority { get; set; }
         public Guid ProjectId { get; set; }
         public ProjectDto Project { get; set; }
 

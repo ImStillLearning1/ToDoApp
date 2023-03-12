@@ -14,6 +14,7 @@ namespace ToDoApp.Models
 
         [EnumDataType(typeof(DutyStatus))]
         public DutyStatus DutyStatus { get; set; }
+		public int Priority { get; set; }
 
         public Guid ProjectId { get; set; }
 		public Project Project{ get; set; }

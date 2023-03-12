@@ -34,6 +34,11 @@
                         @Html.EditorFor(model => model.Duty.EndDate, new { htmlAttributes = new { @class = "form-control", placeholder = "Data zakończenia", @Model.Duty.EndDate } })
                         @Html.ValidationMessageFor(model => model.Duty.EndDate, "", new { @class = "text-danger" })
                     </div>
+                    <div class="input-box">
+                        @Html.LabelFor(model => model.Duty.Priority, "Priorytet", new { @class="input-label" })
+                        @Html.EditorFor(model => model.Duty.Priority, new { htmlAttributes = new { @class = "form-control", placeholder = "Priorytet", @min = "1", @max = "5" } })
+                        @Html.ValidationMessageFor(model => model.Duty.Priority, "", new { @class = "text-danger" })
+                    </div>
                     <div class="input-box input-box--submit">
                         <input type="submit" value="Zapisz" name="UpdateDuty" class="submit-button" />
                     </div>

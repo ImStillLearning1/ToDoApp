@@ -101,14 +101,27 @@ namespace ToDoApp.Controllers
             }
             else
             {
-                //DutyDto dutyDto = editDutyViewModel.Duty;
                 ProjectDto projectDto = await _projectRepository.GetProjectById(dutyDto.ProjectId);
                 UserDto userDto = await _userRepository.GetUserById(dutyDto.UserId);
                 dutyDto.UserId = userDto.UserId;
                 dutyDto.Project = null;
                 dutyDto.ProjectId = projectDto.ProjectId;
-                await _dutyRepository.UpdateDuty(dutyDto);
-                return RedirectToAction("Index", new RouteValueDictionary(new { controller = "UserPanel", action = "Index" }));
+                if (ModelState.IsValid)
+                {
+                    await _dutyRepository.UpdateDuty(dutyDto);
+                    return RedirectToAction("Index", new RouteValueDictionary(new { controller = "UserPanel", action = "Index" }));
+                }
+                else
+                {
+                    List<ProjectDto> projectsDto = await _projectRepository.GetUserProjects(dutyDto.UserId);
+                    EditDutyViewModel editDutyViewModel = new EditDutyViewModel()
+                    {
+                        Duty = dutyDto,
+                        Projects = projectsDto
+                    };
+                    return View("Edit", editDutyViewModel);
+                }
+                
             }
         }
     }

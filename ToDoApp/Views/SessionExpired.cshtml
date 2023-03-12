@@ -1,3 +1,11 @@
 ﻿
-<p>Twoja sesja wygasła, zaloguj się ponownie</p>
-<a href="../logowanie">Zaloguj</a>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <div class="message-box">
+                <p>Twoja sesja wygasła, <br />  zaloguj się ponownie</p>
+                <a asp-controller="SignIn" asp-action="Index" class="message-button">Zaloguj</a>
+            </div>
+        </div>
+    </div>
+</div>

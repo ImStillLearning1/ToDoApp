@@ -18,7 +18,7 @@ namespace ToDoApp.ViewComponents
         {
             if(string.IsNullOrEmpty(HttpContext.Session.GetString("_userId")))
             {
-                return View("Index");
+                return View();
             }
             UserDto userDto = await _userRepository.GetUserById(Guid.Parse(HttpContext.Session.GetString("_userId")));
             return View("Index", userDto);

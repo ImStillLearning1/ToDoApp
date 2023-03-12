@@ -17,6 +17,7 @@ builder.Services.AddScoped<IDutyRepository, DutyRepository>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<IEventRepository, EventRepository>();
 builder.Services.AddHostedService<BackgroundSendingEmail>();
+builder.Services.AddMvc();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));

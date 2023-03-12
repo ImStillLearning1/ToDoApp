@@ -101,6 +101,38 @@
                                     <div class="duty-project">
                                         <span>@duty.Project.Title</span>
                                     </div>
+
+                                    @if(duty.Priority == 1)
+                                    {
+                                        <div class="duty-priority duty-priority--1">
+                                            <span>@duty.Priority</span>
+                                        </div>
+                                    }
+                                    @if (duty.Priority == 2)
+                                    {
+                                        <div class="duty-priority duty-priority--2">
+                                            <span>@duty.Priority</span>
+                                        </div>
+                                    }
+                                    @if (duty.Priority == 3)
+                                    {
+                                        <div class="duty-priority duty-priority--3">
+                                            <span>@duty.Priority</span>
+                                        </div>
+                                    }
+                                    @if(duty.Priority == 4)
+                                    {
+                                        <div class="duty-priority duty-priority--4">
+                                            <span>@duty.Priority</span>
+                                        </div>
+                                    }
+                                    @if (duty.Priority == 5)
+                                    {
+                                        <div class="duty-priority duty-priority--5">
+                                            <span>@duty.Priority</span>
+                                        </div>
+                                    }
+                                    
                                 </div>
                             </div>
                         </div>
