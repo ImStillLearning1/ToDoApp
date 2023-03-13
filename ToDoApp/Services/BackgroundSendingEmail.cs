@@ -19,7 +19,7 @@ namespace ToDoApp.Services
             _logger = logger;
             _serviceScopeFactory = serviceScopeFactory;
             _mapper = mapper;
-            _timer = new(TimeSpan.FromSeconds(this.RecalculateDelay()));
+            _timer = new(TimeSpan.FromMilliseconds(this.RecalculateDelay()));
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
