@@ -76,7 +76,7 @@ namespace ToDoApp.Services
             if (nowTime > eightAmTime)
                 eightAmTime = eightAmTime.AddDays(1);
 
-            int tickTime = (int)(eightAmTime - nowTime).TotalSeconds;
+            int tickTime = (int)(eightAmTime - nowTime).TotalMilliseconds;
             return tickTime;
         }
 
