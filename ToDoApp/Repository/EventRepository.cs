@@ -68,25 +68,12 @@ namespace ToDoApp.Repository
         {
             Event eventToUpdate = await _db.Events.Where(x => x.EventId == eventDto.EventId).AsNoTracking().FirstOrDefaultAsync();
             eventToUpdate = _mapper.Map<Event>(eventDto);
-            bool test = CheckIfTracked(eventDto.EventId);
-;            //_db.Events.Update(eventToUpdate);
+;            _db.Events.Update(eventToUpdate);
 
             await _db.SaveChangesAsync();
 
             return _mapper.Map<EventDto>(eventToUpdate);
 
-        }
-
-        public bool CheckIfTracked(Guid EventId)
-        {
-            if (_db.ChangeTracker.Entries<Event>().Any(x => x.Entity.EventId == EventId))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-             }
         }
     }
 }

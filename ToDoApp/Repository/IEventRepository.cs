@@ -10,7 +10,5 @@ namespace ToDoApp.Repository
         Task<EventDto> GetEvent(Guid eventId);
         Task<List<EventDto>> GetUserEvents(Guid userId);
         Task<IEnumerable<EventDto>> GetAllEvents();
-
-        public bool CheckIfTracked(Guid EventId);
     }
 }
