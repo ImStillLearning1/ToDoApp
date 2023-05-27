@@ -631,7 +631,9 @@ body {
     justify-content: center;
     min-height: 100vh;
     min-width: 100vw;
-    background-color: rgba(0,0,0);
+    background-image: url("../assets/background-2.jpg");
+    background-size: contain;
+    background-position: center;
     position: absolute;
     top: 0;
     z-index: -1;

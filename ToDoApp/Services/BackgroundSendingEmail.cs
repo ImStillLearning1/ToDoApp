@@ -51,7 +51,7 @@ namespace ToDoApp.Services
                         body += "Chcielibyśmy Cię poinformować o wydarzeniu: " + eventItem.Title + "<br/>";
                         body += "Opis wydarzenia: " + eventItem.Description + "<br/>";
                         body += "Data wydarzenia: " + eventItem.DateOfOccurence + "<br/>";
-                        SendEmail.Email("mateusz.expand@gmail.com", subject, body);
+                        SendEmail.Email(eventItem.User.EmailAddress, subject, body);
 
                         _logger.LogInformation("The email has been sent for Event ID: " + eventItem.EventId);
                         eventItem.ReminderSent = true;

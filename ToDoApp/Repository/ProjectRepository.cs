@@ -33,7 +33,17 @@ namespace ToDoApp.Repository
 
             return _mapper.Map<ProjectDto>(project);
         }
+        
+        public async Task<ProjectDto> GetProjectWithDuties(Guid projectId, Guid userId)
+        {
+            Project project = await _db.Projects
+                .Include(b => b.Duties)
+                .Where(x => x.UserId == userId && x.ProjectId == projectId)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
+            return _mapper.Map<ProjectDto>(project);
 
+        }
         public async Task<List<ProjectDto>> GetUserProjects(Guid userId)
         {
             List<Project> projectsList = await _db.Projects.Where(x => x.UserId == userId).ToListAsync();

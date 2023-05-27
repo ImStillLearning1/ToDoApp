@@ -9,7 +9,8 @@ namespace ToDoApp.Controllers
 {
     public class ProjectController : Controller
     {
-        private IProjectRepository _projectRepository;
+        private readonly IProjectRepository _projectRepository;
+
 
         public ProjectController(IProjectRepository projectRepository)
         {
@@ -71,7 +72,7 @@ namespace ToDoApp.Controllers
             }
             else
             {
-                ProjectDto projectDto = await _projectRepository.GetProjectById(projectId);
+                ProjectDto projectDto = await _projectRepository.GetProjectWithDuties(projectId, Guid.Parse(HttpContext.Session.GetString("_userId")));
                 return View(projectDto);
             }
         }

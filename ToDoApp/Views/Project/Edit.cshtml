@@ -23,8 +23,35 @@
                     <div class="input-box input-box--submit">
                         <input type="submit" value="Zapisz" name="UpdateProject" class="submit-button" />
                     </div>
-
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-5">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <button class="btn btn--summary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAllDuties" aria-expanded="false" aria-controls="collapseAllDuties">
+                Zadania w projekcie
+            </button>
+            <div class="collapse show collapse-center" id="collapseAllDuties">
+                <table class="table-summary">
+                    <tr>
+                        <th>Tytuł</th>
+                        <th>Opis</th>
+                        <th>Status</th>
+                        <th>Data utworzenia</th>
+                    </tr>
+                    @foreach (var duty in Model.Duties)
+                    {
+                        <tr>
+                            <td>@duty.Title</td>
+                            <td>@duty.Description</td>
+                            <td>@duty.DutyStatus</td>
+                            <td>@duty.CreatedDate</td>
+                        </tr>
+                    }
+                </table>
             </div>
         </div>
     </div>
